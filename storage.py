@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+#
+# Calculate annual costs of storage on various services.
+
 import matplotlib.pyplot as plt
 import numpy as np
 import math
