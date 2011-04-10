@@ -7,44 +7,44 @@ import numpy as np
 import math
 
 def tierpoints(limits,costs):
-	# Calculate plot points for tiered storage costs
-	# - limits is a list of data storage limits
-	# - costs is a list of equivalent prices, 
-	#      where costs[n] is the price paid for storage >= limits[n]
-	if len(limits) != len(costs):
-		raise ValueError
+    # Calculate plot points for tiered storage costs
+    # - limits is a list of data storage limits
+    # - costs is a list of equivalent prices, 
+    #      where costs[n] is the price paid for storage >= limits[n]
+    if len(limits) != len(costs):
+        raise ValueError
 
-	xvals = [0]; yvals = [0]
+    xvals = [0]; yvals = [0]
 
-	for n in range(len(limits)):
-		if n != 0:
-			xvals.append(limits[n-1]+0.00001)	
-			yvals.append(costs[n])	
-		xvals.append(limits[n])
-		yvals.append(costs[n])
+    for n in range(len(limits)):
+        if n != 0:
+            xvals.append(limits[n-1]+0.00001)   
+            yvals.append(costs[n])  
+        xvals.append(limits[n])
+        yvals.append(costs[n])
 
-	return xvals, yvals
+    return xvals, yvals
 
 def s3cost(size, pergb):
-	# Estimated cost for S3 EU storage for duplicity backups
+    # Estimated cost for S3 EU storage for duplicity backups
 
-	if size == 0: 
-		return 0
-	
-	size = math.ceil(size)
-			
-	transfercost = (size/12-1)*0.15
+    if size == 0: 
+        return 0
+    
+    size = math.ceil(size)
+            
+    transfercost = (size/12-1)*0.15
 
-	filesize = 25 # MB
-	nputs = (size*1000/12)/filesize 		# per month
-	putcost = math.ceil(nputs/1000)*0.01
-	getcost = putcost
+    filesize = 25 # MB
+    nputs = (size*1000/12)/filesize         # per month
+    putcost = math.ceil(nputs/1000)*0.01
+    getcost = putcost
 
-	storagecost = size * pergb
+    storagecost = size * pergb
 
-	monthcost = transfercost + putcost + getcost + storagecost
-	return monthcost * 12
-	
+    monthcost = transfercost + putcost + getcost + storagecost
+    return monthcost * 12
+    
 
 D = np.arange(0., 200., 0.01)
 # S3
@@ -55,7 +55,7 @@ plt.plot(xvals, s3full, label="S3 Europe")
 plt.plot(xvals, s3red, label="S3 Europe - reduced redundancy")
 
 def bitfolkcost(size, per5gb):
-	return math.ceil(size/5)*per5gb
+    return math.ceil(size/5)*per5gb
 
 gbp2usd = 1.6018
 # bfmon = [bitfolkcost(x,0.4*gbp2usd*12) for x in xvals]
