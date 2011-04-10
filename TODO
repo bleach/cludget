@@ -1,0 +1,9 @@
+
+TODO
+====
+
+* Add a mode to simply emit the costs to stdout rather than graphing them.
+* Move to an OO model so that adding costs for new providers doesn't involve 
+  so much code duplication. We'd have classes for all the charging mechanisms 
+  used.
+* Build a basic webapp that has a form to input the key variables.
